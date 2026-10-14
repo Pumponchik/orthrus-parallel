@@ -1,0 +1,15 @@
+# Local, untouched research history; never include it in a repository export.
+/archive/
+/models/
+/runs/
+/.venv/
+/.python/
+/.tools/
+/.uv-cache/
+__pycache__/
+*.py[cod]
+*.part
+.DS_Store
+/uv_bootstrap_receipt.json
+/checkpoint_receipt.json
+/dist/

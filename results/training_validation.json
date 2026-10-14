@@ -1,0 +1,19 @@
+{
+  "state": "passed",
+  "maximum_parameter_errors": {
+    "hazard": {
+      "mean": 0.0,
+      "scale": 0.0,
+      "p0": 0.0,
+      "p1": 0.0
+    },
+    "rank": {
+      "mean": 0.0,
+      "scale": 0.0,
+      "p0": 0.0,
+      "p1": 0.0
+    }
+  },
+  "temperature": 1.0,
+  "scope": "Clean trainer reproduces original fitted weights from the original 0.6B train/validation states"
+}

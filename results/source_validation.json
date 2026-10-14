@@ -1,0 +1,29 @@
+{
+  "state": "passed",
+  "date": "2026-10-14",
+  "cli": {
+    "method": "selected48",
+    "tokens": 64,
+    "stats": {
+      "rounds": 24,
+      "hits": 9,
+      "misses": 3,
+      "fresh_drafts": 15,
+      "joint_forwards": 12,
+      "ar_forwards": 12,
+      "trace": []
+    }
+  },
+  "source_sha256": {
+    "orthrus_parallel/__init__.py": "ec5c64135c26b6ff89d3e7853b3ccc828f844cf55cdf2347d6f1f23ae45f9f68",
+    "orthrus_parallel/__main__.py": "9b1237df03d048c447e42303e8c019147f7b5f798c94c9a6d8a63b1822a871d5",
+    "orthrus_parallel/generation.py": "816007608e462d5f76216e7ea6ed03c3449188781e36fc5f8b66e26301a519c0",
+    "orthrus_parallel/joint.py": "95deb41f8902f0b15988494f030d099dc7bb379748d0d34dd4b0d3ae5f5f2c2d",
+    "orthrus_parallel/loading.py": "20c9da0f0687226bec6e24ad09766278514f42c97a73481dc5f076a43be787ad",
+    "orthrus_parallel/selector.py": "ba27a81642c0a432752ff78566b55a4fbe36662d584f2cd5dd0b3f700f12fbdc",
+    "orthrus_parallel/training.py": "94e1c8d71b2ddd1595f1c80a1cf012e78bafd05e2b94286fe88f90c167f1ef1c",
+    "scripts/train_selector.py": "3a99db385d4882e81acf407b331aa26f910a3ef64f08938613e8d4c2c2ba58d7",
+    "tests/validate_runtime.py": "28cb3a59582960e6a614d411c38e6f4b2637f34cc96299963b603c424ca28d25"
+  },
+  "excluded_transfer_metadata": "macOS AppleDouble tar metadata entries were excluded; not Python source files"
+}

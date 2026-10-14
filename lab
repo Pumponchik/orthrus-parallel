@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+lab_root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+export UV_PYTHON_INSTALL_DIR="$lab_root/.python"
+export UV_CACHE_DIR="$lab_root/.uv-cache"
+export UV_HTTP_TIMEOUT=120
+export UV_HTTP_RETRIES=3
+cd "$lab_root"
+exec "$lab_root/.tools/uv" "$@"

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "fresh_code_00",
+    "domain": "code",
+    "prompt": "Write Python function merge_windows(windows) that merges overlapping half-open integer intervals, keeps adjacent intervals separate, rejects reversed bounds, and drops empty intervals. Include a brief explanation and three tests.",
+    "prompt_sha256": "72345095aaca9541e007fd9f807992f14565e58a1fd79e6bcf356b93266248c8"
+  },
+  {
+    "id": "fresh_code_01",
+    "domain": "code",
+    "prompt": "Implement a stable topological sort in Python: nodes are strings, ties use input order, duplicate edges are ignored, and cycles raise ValueError. Explain the data structures.",
+    "prompt_sha256": "a5848877f3d85ce3c7b56677d680f82a8ed2d206e422658ed3d132f7a8690374"
+  },
+  {
+    "id": "fresh_code_02",
+    "domain": "code",
+    "prompt": "Write a Python iterator that yields a rolling median for a stream of integers with window size k. Explain a correct efficient approach and treatment of duplicate values.",
+    "prompt_sha256": "bd925e333a8f0c377f8851db8063c7a23c781b6770600babe14148d2b6bc770e"
+  },
+  {
+    "id": "fresh_code_03",
+    "domain": "code",
+    "prompt": "Implement a Python function to parse escaped key=value pairs separated by semicolons. A backslash escapes the next character. Report malformed trailing escapes. Give examples.",
+    "prompt_sha256": "55b3e778e5383d1ca111f9320a15c5918c28c611d80447f1f3113876ed09b2de"
+  },
+  {
+    "id": "fresh_code_04",
+    "domain": "code",
+    "prompt": "Write a Python function finding the shortest contiguous slice containing every distinct item of an input list. Return half-open indices and choose the earliest slice in a tie. Explain correctness.",
+    "prompt_sha256": "b03a3f1bfc43f6610b5d258282c5706d20d0ccb930f5340ed6d8592769ea7467"
+  },
+  {
+    "id": "fresh_code_05",
+    "domain": "code",
+    "prompt": "Implement a small Python LRU cache with get and put, capacity zero support, and O(1) operations. Include a test sequence that exercises eviction and updating a key.",
+    "prompt_sha256": "2f137388466aa40d14ee27faf07b0d64e09e72f77b635822520f1672a31572cc"
+  },
+  {
+    "id": "fresh_code_06",
+    "domain": "code",
+    "prompt": "Write a Python function reconstructing one longest increasing subsequence in O(n log n). Strictly increasing, return values rather than length. Explain predecessor links.",
+    "prompt_sha256": "c494be6f70fc28339f38393de357f235d5109934755d5a9eb0299a15eb8d6f79"
+  },
+  {
+    "id": "fresh_code_07",
+    "domain": "code",
+    "prompt": "Implement a Python scheduler returning the earliest finish time for tasks with durations and dependencies, with unlimited workers. Detect unknown dependencies and cycles. Include an example.",
+    "prompt_sha256": "94c4116cd0255bd514c2b049280338c9b0b2a1fcf273aca87f3ba6ef385d03a7"
+  },
+  {
+    "id": "fresh_math_00",
+    "domain": "math",
+    "prompt": "A reservoir begins with 180 liters. Every minute 12 percent of its current water is removed, then 15 liters are added. Derive an expression for the amount after n minutes and compute its limiting value. Show the reasoning.",
+    "prompt_sha256": "5ded0976884e4d796c000f37b1832adfc92b423596dde5d02ee801f3eec6d0bb"
+  },
+  {
+    "id": "fresh_math_01",
+    "domain": "math",
+    "prompt": "Three fair six-sided dice are rolled. Conditional on the sum being even, what is the probability that at least one die shows six? Solve by counting and simplify the fraction.",
+    "prompt_sha256": "3872c705854e9f6cd3994e4c2f1ebe61f9bebb68fa3c894eec8e1408a9d8719c"
+  },
+  {
+    "id": "fresh_math_02",
+    "domain": "math",
+    "prompt": "A sequence satisfies a_0=2, a_1=5 and a_(n+2)=4a_(n+1)-3a_n. Derive a closed form, check the initial values, and compute a_8.",
+    "prompt_sha256": "facdf760cb4b9fc7a805b74ca8eae44ae54594df05911409af5b006ba1faa3d4"
+  },
+  {
+    "id": "fresh_math_03",
+    "domain": "math",
+    "prompt": "A rectangle has perimeter 50. A border of width 1 is placed inside along all four sides. Which side lengths maximize the remaining inner area? Explain why the answer is a maximum.",
+    "prompt_sha256": "adfb0c87c25c3791f8db74896af0e52db5819aead7e1a00f217537f413c63147"
+  },
+  {
+    "id": "fresh_math_04",
+    "domain": "math",
+    "prompt": "How many length-eight strings over {A,B,C} contain exactly three As and have no two As adjacent? Give a counting argument and the final integer.",
+    "prompt_sha256": "b2725ea51ffc9db48d7b8c0a63b7fec5f953f56d582d880fc638b38bcb8f2ace"
+  },
+  {
+    "id": "fresh_math_05",
+    "domain": "math",
+    "prompt": "A fair coin is tossed until two consecutive heads occur. Derive the expected number of tosses using a small system of equations. Explain the states clearly.",
+    "prompt_sha256": "79005f9673d2a95d72f97a78ccd1c86d08c1ab869f738aff30dbcf976f90dc09"
+  },
+  {
+    "id": "fresh_math_06",
+    "domain": "math",
+    "prompt": "A shop applies a 20 percent markup to cost, then gives a 15 percent discount from its marked price. A customer pays 306. Find the original cost and the actual profit percentage, showing each step.",
+    "prompt_sha256": "6f3d6b783784f74386893679ab0f1385122098372d33828d984f747276ec8842"
+  },
+  {
+    "id": "fresh_math_07",
+    "domain": "math",
+    "prompt": "Find all integer pairs (x,y) with x greater than or equal to y greater than zero such that 1/x + 1/y = 1/12. Explain a factorization method and list the pairs.",
+    "prompt_sha256": "868b1ef62109ff3097994df808316389c8cdf90d05a81e3970c75ae8183ee86a"
+  },
+  {
+    "id": "fresh_prose_00",
+    "domain": "prose",
+    "prompt": "Write a short scene of about 180 words in which a lighthouse keeper receives a letter dated tomorrow. Use restrained language, a concrete setting, and an unresolved ending.",
+    "prompt_sha256": "bcbdac0b7ac44802a8d8d1cb6f7044e68360734cb359c62858250551d2c554d6"
+  },
+  {
+    "id": "fresh_prose_01",
+    "domain": "prose",
+    "prompt": "Explain to a nontechnical colleague how a cache speeds up repeated work, using a library analogy. Include one example where caching produces an outdated answer and how to address it.",
+    "prompt_sha256": "2d3b278bd5d574ae08f324412e2b1cd0887cf2069b5ad0eef2a13805b90563f1"
+  },
+  {
+    "id": "fresh_prose_02",
+    "domain": "prose",
+    "prompt": "Draft a calm project update of about 170 words: the prototype works, two integration issues remain, the launch estimate is uncertain, and the team will publish a measured update Friday. Avoid inventing dates or numbers.",
+    "prompt_sha256": "9d3f23377cfef3b7468349066d17bf48fbc8e4c6bf69b9bf44c2a8868d31c1da"
+  },
+  {
+    "id": "fresh_prose_03",
+    "domain": "prose",
+    "prompt": "Compare two approaches to organizing a community workshop: advance registration versus walk-ins. Discuss accessibility, capacity planning, and communication in about 180 words.",
+    "prompt_sha256": "1e230a3d9cb8cc635cea744241cc3e3d946c35d9f3ccf1ad1fb43dc1a04c70e0"
+  },
+  {
+    "id": "fresh_prose_04",
+    "domain": "prose",
+    "prompt": "Summarize this meeting note and list the unresolved decisions: A small team tested a search interface with volunteers. Most found the search box easily, but several could not distinguish filters from sorting. Mobile sessions were slower. The team agreed to change labels, keep the current color scheme, and test again. They did not decide whether to collapse filters on mobile or whether to require sign-in for saved searches. Two participants requested keyboard shortcuts.",
+    "prompt_sha256": "3ff1a19d578c51b26c5f092b37ed0c0643983dd3ba245932be8e34d670daca47"
+  },
+  {
+    "id": "fresh_prose_05",
+    "domain": "prose",
+    "prompt": "Write a concise guide for someone facilitating their first retrospective meeting. Explain preparation, opening, discussion, and choosing follow-up actions. Use practical examples and avoid management jargon.",
+    "prompt_sha256": "4825cbe4d12f01dafc0ebda1b55d9a2af4aa8dfaa342f22bc9b216a03dad107c"
+  },
+  {
+    "id": "fresh_prose_06",
+    "domain": "prose",
+    "prompt": "Write a dialogue between two siblings deciding what to do with an inherited broken clock. Let their disagreement reveal different attitudes toward family history without explaining those attitudes directly.",
+    "prompt_sha256": "3ffd14a0e921d10fab316079242682ded06f215b8aa22844c9bbb992da8e339e"
+  },
+  {
+    "id": "fresh_prose_07",
+    "domain": "prose",
+    "prompt": "Explain the difference between a forecast and a commitment for a team planning a complex project. Include an example, a way to communicate uncertainty, and a reasonable update policy.",
+    "prompt_sha256": "d7011776c7933b43c0cfc7d114816dcad89654a56906232bdbe89dccb3a14a07"
+  }
+]

@@ -1,0 +1,74 @@
+{
+  "repo": "ai-forever/ZaryaOrthrus-0.6B",
+  "revision": "6c93071b27ab0d2061007dda0416f0439ed4d7df",
+  "files": [
+    {
+      "type": "file",
+      "oid": "52373fe24473b1aa44333d318f578ae6bf04b49b",
+      "size": 1570,
+      "path": ".gitattributes"
+    },
+    {
+      "type": "file",
+      "oid": "1379ac6615409ff0109df851d37ab629ec31d47f",
+      "size": 3365,
+      "path": "README.md"
+    },
+    {
+      "type": "file",
+      "oid": "01be9b307daa2d425f7c168c9fb145a286e0afb4",
+      "size": 4168,
+      "path": "chat_template.jinja"
+    },
+    {
+      "type": "file",
+      "oid": "817b2261a6d344d3f5aee6a39fa9829856ea993a",
+      "size": 1533,
+      "path": "config.json"
+    },
+    {
+      "type": "file",
+      "oid": "eb031567db730db68c515813bb601242fd8556e0",
+      "size": 204,
+      "path": "generation_config.json"
+    },
+    {
+      "type": "file",
+      "oid": "3fe7f3edfbcd52f50ea8afc2c4eeac3c303ea5ad",
+      "size": 1544491184,
+      "lfs": {
+        "oid": "c4c18aa39cfabe07cf8b6d2cfdca53f8bffcb1f9abbacba1320e6442893babe3",
+        "size": 1544491184,
+        "pointerSize": 135
+      },
+      "xetHash": "c3186133f1bb3793efd4034124133f31a082ca0aeaa10cb8f1c5bd5d1ce2d583",
+      "path": "model.safetensors"
+    },
+    {
+      "type": "file",
+      "oid": "4ff02df30be483383aa64a647410d3b0c8e0907b",
+      "size": 23500,
+      "path": "modeling_orthrus.py"
+    },
+    {
+      "type": "file",
+      "oid": "d5fe4e5b5aa97460e12226a6a3892aef7574f117",
+      "size": 11422843,
+      "lfs": {
+        "oid": "5fcb0e1d503d2b3d47ecf2e4d3acc9b1237888193adb640efaabafba6a7cdf37",
+        "size": 11422843,
+        "pointerSize": 133
+      },
+      "xetHash": "38b3da8e24c98fb2546e432fff6b4de4f6499020e9b72f836e5575fdd4b11253",
+      "path": "tokenizer.json"
+    },
+    {
+      "type": "file",
+      "oid": "fabf51476ebcdcf0a23cc1652bb4dbabcf11a3ff",
+      "size": 470,
+      "path": "tokenizer_config.json"
+    }
+  ],
+  "code_sha256": "7e8f4e01c4c8c469866839976acd6fa45dec207af40d939e0a46b8918e413334",
+  "weights_sha256": "c4c18aa39cfabe07cf8b6d2cfdca53f8bffcb1f9abbacba1320e6442893babe3"
+}
