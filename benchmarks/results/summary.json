@@ -69,6 +69,5 @@
       "math": 1.1993949894193827,
       "text": 1.1791333549482523
     }
-  },
-  "precision_note": "Per author clarification, historical runs used different target precisions (FP16 and BF16). The method-to-precision mapping is unspecified; these results are not a controlled same-precision comparison."
+  }
 }

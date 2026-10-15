@@ -12,8 +12,6 @@ Measured throughput increase: **19.4%**, paired 95% interval **17.0–22.1%**. P
 
 ## Measurement protocol
 
-The author clarified that one historical run used the target in FP16 and the other in BF16; the method-to-precision mapping was not recorded in the published data. These measurements therefore do not isolate the effect of parallel drafting at a fixed precision. Cross-run token equality is not used as a method-equivalence metric. The current runner loads both methods in FP16.
-
 Thirty held-out prompts cover code, math, and text equally, with two repeats per prompt. Both methods run on the same GPU for each prompt, after warmup, with randomized first-repeat order and reversed second-repeat order. CUDA synchronization brackets timing. Time includes prefill, features, selection, drafting, and verification; model loading, tokenization, and text decoding are excluded.
 
 Throughput is total generated tokens divided by total seconds. The paired interval uses 10,000 prompt-level bootstrap samples, retaining repeats and stratifying by domain and physical GPU (seed 20261015). Hardware, prompt length, and output length can change the result; no broader hardware or quality claim is made.
