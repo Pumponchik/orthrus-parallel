@@ -1,5 +1,7 @@
 """Rank candidate (accepted prefix, next token) pairs before verification."""
 from pathlib import Path
+import json
+from .integrity import checked_path, sha256
 import numpy as np
 import torch
 from .models import BilinearScorer
@@ -13,11 +15,16 @@ class Selector:
         self.eos = eos if isinstance(eos, list) else [eos]
         self.m, self.k = m, k
         self.needs_hidden, self.needs_context = True, False
-        ck = torch.load(self.root / 'selector.pt', map_location=device, weights_only=False)
+        manifest = json.loads((self.root / 'manifest.json').read_text())
+        for name in ('selector.pt', 'embedding_projected.npy', 'projection.npy'):
+            path = checked_path(self.root, name)
+            if sha256(path) != manifest['weights/' + name]:
+                raise ValueError(f'Selector hash mismatch: {name}')
+        ck = torch.load(self.root / 'selector.pt', map_location=device, weights_only=True)
         self.model = BilinearScorer(ck['mode'], ck['width']).to(device).eval()
         self.model.load_state_dict(ck['state_dict'])
-        self.embedding = torch.tensor(np.load(self.root / 'embedding_projected.npy'), device=device, dtype=torch.float32)
-        self.projection = torch.tensor(np.load(self.root / 'projection.npy'), device=device, dtype=torch.float32)
+        self.embedding = torch.tensor(np.load(self.root / 'embedding_projected.npy', allow_pickle=False), device=device, dtype=torch.float32)
+        self.projection = torch.tensor(np.load(self.root / 'projection.npy', allow_pickle=False), device=device, dtype=torch.float32)
 
     def set_state(self, hidden, context, source, prefix, cycle):
         self.state = (hidden, context, source, prefix, cycle)
@@ -48,3 +55,4 @@ class Selector:
         keep = order[:m]
         r, k = (keep // 64, keep % 64)
         return BranchBank(r, candidates[r, k])
+

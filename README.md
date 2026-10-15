@@ -48,4 +48,7 @@ Use `--method baseline` for ordinary Orthrus, or `--prompt-file`, `--max-new-tok
 
 ## License
 
-Original code and documentation: [MIT](LICENSE). The bundled selector weights have **separate noncommercial research terms**; model-derived embeddings retain upstream terms. See [NOTICE](NOTICE.md) before using or redistributing weights.
+Original code, documentation, selector weights, and random projection: [MIT](LICENSE). Projected model embeddings retain the applicable Zarya MIT and Qwen Apache-2.0 terms; upstream notices are retained in [licenses/](licenses/).
+
+The selector was trained on model-generated states from GSM8K, MBPP, and Stanford Alpaca instruction/input prompts. Attribution: [GSM8K](https://github.com/openai/grade-school-math), [MBPP](https://github.com/google-research/google-research/tree/master/mbpp), and [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca). Base checkpoint: [ZaryaOrthrus-0.6B](https://huggingface.co/ai-forever/ZaryaOrthrus-0.6B), based on Qwen3-0.6B. Third-party assets retain their respective terms.
+

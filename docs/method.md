@@ -42,4 +42,5 @@ If verification accepts exactly three proposals and emits `return`, that branch 
 
 The released scorer used states from GSM8K, MBPP, and Alpaca prompts: 14,264 usable training states, 1,815 validation states, and 1,817 test states. Prompt families were separated across splits. Features precede the current AR verification; the actual accepted boundary and next token provide labels afterward.
 
-Weights and inference are included. The complete training corpus and training pipeline are not included, so this repository supports inference and evaluation, not full retraining from scratch. See [weight terms](../NOTICE.md).
+Weights and inference are included. The complete training corpus and training pipeline are not included, so this repository supports inference and evaluation, not full retraining from scratch. See [license and provenance](../README.md#license).
+

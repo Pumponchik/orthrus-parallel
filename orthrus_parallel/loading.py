@@ -1,17 +1,9 @@
 """Pinned checkpoint loading. Generation never silently downloads model files."""
-import hashlib
 import json
 from pathlib import Path
+from .integrity import checked_path, sha256, verify_file
 
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def sha256(path):
-    digest = hashlib.sha256()
-    with Path(path).open('rb') as stream:
-        for block in iter(lambda: stream.read(8 * 1024**2), b''):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def checkpoint_config():
@@ -23,7 +15,7 @@ def default_checkpoint():
     return ROOT / 'models' / config['repo'].split('/')[-1] / config['revision']
 
 
-def load_model(checkpoint=None, device='cuda', threads=2):
+def load_model(checkpoint=None, device='cuda'):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
     path = Path(checkpoint) if checkpoint else default_checkpoint()
@@ -34,11 +26,9 @@ def load_model(checkpoint=None, device='cuda', threads=2):
             raise FileNotFoundError(f'Missing {path / name}; see scripts/download_model.py')
         if sha256(path / name) != expected:
             raise ValueError(f'Checkpoint hash mismatch: {name}')
-    torch.set_num_threads(threads)
-    torch.set_num_interop_threads(1)
-    torch.manual_seed(20261012)
-    torch._dynamo.config.disable = True
-    torch.backends.cuda.matmul.allow_tf32 = False
+    for item in config['files']:
+        if item['type'] == 'file':
+            verify_file(checked_path(path, item['path']), item)
     model = AutoModelForCausalLM.from_pretrained(path, trust_remote_code=True,
         local_files_only=True, dtype=torch.float16, attn_implementation='sdpa').to(device).eval()
     tokenizer = AutoTokenizer.from_pretrained(path, local_files_only=True)
@@ -51,3 +41,4 @@ def encode_prompt(tokenizer, prompt, device):
         {'role': 'user', 'content': prompt}], enable_thinking=False,
         add_generation_prompt=True, return_tensors='pt')
     return (result.input_ids if hasattr(result, 'input_ids') else result).to(device)
+
