@@ -1,0 +1,151 @@
+{
+  "state": "complete",
+  "test_opened": false,
+  "validation_states": 1815,
+  "continuing_states": 1797,
+  "candidate_ceiling": {
+    "1": 0.452977184195882,
+    "2": 0.6193656093489148,
+    "4": 0.7451307735114079,
+    "8": 0.8497495826377296,
+    "16": 0.9115191986644408,
+    "32": 0.9443516972732332,
+    "64": 0.9660545353366722
+  },
+  "old_actual_hit": {
+    "states_with_observed_next_source": 1624,
+    "hit_rate": 0.8134236453201971,
+    "method": "For contiguous logged states, next source=hit iff current original-policy bank hit. Final state per prompt omitted."
+  },
+  "models": {
+    "f1": {
+      "kind": "neural",
+      "name": "numeric_64_ce_20261017",
+      "k": 32,
+      "budgets": {
+        "16": {
+          "hit_rate": 0.7173066221480244,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 71,
+          "boundary_present_but_anchor_missing": 376,
+          "oracle_boundary_hit_rate": 0.9115191986644408,
+          "same_states_as_old_hit_rate": 0.7130541871921182,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "24": {
+          "hit_rate": 0.7846410684474123,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 39,
+          "boundary_present_but_anchor_missing": 287,
+          "oracle_boundary_hit_rate": 0.9309961046188091,
+          "same_states_as_old_hit_rate": 0.7789408866995073,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "32": {
+          "hit_rate": 0.8235948803561491,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 27,
+          "boundary_present_but_anchor_missing": 229,
+          "oracle_boundary_hit_rate": 0.9443516972732332,
+          "same_states_as_old_hit_rate": 0.8177339901477833,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "48": {
+          "hit_rate": 0.865887590428492,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 13,
+          "boundary_present_but_anchor_missing": 167,
+          "oracle_boundary_hit_rate": 0.9577072899276572,
+          "same_states_as_old_hit_rate": 0.8596059113300493,
+          "old_same_states_hit_rate": 0.8134236453201971
+        }
+      }
+    },
+    "f2": {
+      "kind": "neural",
+      "name": "hidden_64_ce_20261016",
+      "k": 64,
+      "budgets": {
+        "16": {
+          "hit_rate": 0.7328881469115192,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 61,
+          "boundary_present_but_anchor_missing": 358,
+          "oracle_boundary_hit_rate": 0.910962715637173,
+          "same_states_as_old_hit_rate": 0.7302955665024631,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "24": {
+          "hit_rate": 0.7918753478018921,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 35,
+          "boundary_present_but_anchor_missing": 278,
+          "oracle_boundary_hit_rate": 0.9304396215915415,
+          "same_states_as_old_hit_rate": 0.7881773399014779,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "32": {
+          "hit_rate": 0.8286032276015581,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 21,
+          "boundary_present_but_anchor_missing": 226,
+          "oracle_boundary_hit_rate": 0.9449081803005008,
+          "same_states_as_old_hit_rate": 0.8226600985221675,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "48": {
+          "hit_rate": 0.8742348358375069,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 7,
+          "boundary_present_but_anchor_missing": 158,
+          "oracle_boundary_hit_rate": 0.9582637729549248,
+          "same_states_as_old_hit_rate": 0.8688423645320197,
+          "old_same_states_hit_rate": 0.8134236453201971
+        }
+      }
+    },
+    "f3": {
+      "kind": "bilinear",
+      "name": "hidden_64_ce_20261015",
+      "k": 32,
+      "budgets": {
+        "16": {
+          "hit_rate": 0.7345575959933222,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 66,
+          "boundary_present_but_anchor_missing": 350,
+          "oracle_boundary_hit_rate": 0.9115191986644408,
+          "same_states_as_old_hit_rate": 0.7333743842364532,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "24": {
+          "hit_rate": 0.7907623817473567,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 28,
+          "boundary_present_but_anchor_missing": 287,
+          "oracle_boundary_hit_rate": 0.9315525876460768,
+          "same_states_as_old_hit_rate": 0.7875615763546798,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "32": {
+          "hit_rate": 0.8274902615470228,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 18,
+          "boundary_present_but_anchor_missing": 231,
+          "oracle_boundary_hit_rate": 0.9443516972732332,
+          "same_states_as_old_hit_rate": 0.8232758620689655,
+          "old_same_states_hit_rate": 0.8134236453201971
+        },
+        "48": {
+          "hit_rate": 0.860879243183083,
+          "candidate_missing": 61,
+          "boundary_absent_from_bank": 9,
+          "boundary_present_but_anchor_missing": 180,
+          "oracle_boundary_hit_rate": 0.9577072899276572,
+          "same_states_as_old_hit_rate": 0.8559113300492611,
+          "old_same_states_hit_rate": 0.8134236453201971
+        }
+      }
+    }
+  }
+}

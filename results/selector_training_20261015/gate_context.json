@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "scope": "actual Orthrus model class, tiny FP32; future AR suffix perturbation, causal context and branch equivalence",
+  "errors": {
+    "past_context_changed": 0.0,
+    "early_AR_future_intervention": 0.0,
+    "early_branch_future_intervention": 0.0,
+    "cached_context_vs_independent_AR": 4.76837158203125e-07,
+    "cached_kv_vs_independent_AR": 4.76837158203125e-07,
+    "branch_logits_vs_separate_draft": 5.960464477539063e-08
+  },
+  "downstream_change": 4.4549970626831055
+}

@@ -1,0 +1,8 @@
+{
+  "state": "passed",
+  "prompt_id": "code_424",
+  "tokens": 232,
+  "release_matches_frozen_test_exactly": true,
+  "weights_sha256": "18d6dc12b0bf68416f263bf51f05ffdeeb59b79074ab68efe98fb4684d9bb457",
+  "format_ast_equivalent": true
+}

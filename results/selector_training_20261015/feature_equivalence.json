@@ -1,0 +1,10 @@
+{
+  "state": "passed",
+  "candidate_ids_exact": true,
+  "max_errors": {
+    "x": 4.76837158203125e-07,
+    "rows": 0.0,
+    "logp": 1.430511474609375e-06
+  },
+  "scope": "one real validation draft; same candidates, shared normalizer; end-to-end parity checked separately"
+}

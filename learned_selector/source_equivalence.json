@@ -1,0 +1,31 @@
+{
+  "state": "passed",
+  "proof": {
+    "models.py": {
+      "ast_equivalent": true,
+      "research_sha256": "d55ee83b87861638738c1019c922893a747771ced3a12005b772e2a7b9cc3980",
+      "release_sha256": "d9ad99667b74454890dd2c5c3702871709eda7c178cf8f5aaa6da1cfec2b8387"
+    },
+    "features.py": {
+      "ast_equivalent": true,
+      "research_sha256": "69529739992bf10501c4c39c5aa160272e13734e77fb9d83d4c1ae5210415227",
+      "release_sha256": "24170ec1992899fd8e7daf64bd16559dbdc6138b00a578bbc20e1281109c7b14"
+    },
+    "selection.py": {
+      "ast_equivalent": true,
+      "research_sha256": "9f61b00bfc49febae6d2b4a292120a0a188e206b0f02454622d8f7dc0af185aa",
+      "release_sha256": "a0c0a86818462939592a2cd5d48d27734647289c72703dbcbc43efed9b559f3c"
+    },
+    "runtime.py": {
+      "ast_equivalent": true,
+      "research_sha256": "76f3645da47d238aad21c0d57ea959f5250dd8b0a9759faa971189cda4feb2e2",
+      "release_sha256": "ecef1b9d16124295b4bdd50de569ae631ad5c9a1187b0a202c0d190194783ee9"
+    },
+    "infer.py": {
+      "ast_equivalent": true,
+      "research_sha256": "eaca0804e647b7d234112535027d03a1e3a3448ca0e83dcdbf0871a6177dfdd4",
+      "release_sha256": "7bf603c303950933e786fa513017d78a7698fae2d5694bf6d034d09fc8b5c16b"
+    }
+  },
+  "scope": "Formatting only; exact AST equivalence of deployed selector path"
+}

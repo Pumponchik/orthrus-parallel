@@ -1,0 +1,25 @@
+{
+  "state": "passed",
+  "scope": "GitHub package update; no fresh GPU performance claim",
+  "measured_runtime_and_model_bytes_unchanged": true,
+  "model_weights_sha256": "18d6dc12b0bf68416f263bf51f05ffdeeb59b79074ab68efe98fb4684d9bb457",
+  "offline_checks": [
+    "python3 scripts/check_repository.py",
+    "python3 scripts/check_new_selector.py"
+  ],
+  "published": [
+    "standalone learned inference",
+    "trained selector weights and static projections",
+    "paired measurements and aggregate results",
+    "readable README, report, plots and limitations"
+  ],
+  "not_published": [
+    "collected training states",
+    "raw generation outputs and prompt sets",
+    "base checkpoint",
+    "temporary research archives",
+    "credentials or host paths"
+  ],
+  "prior_gpu_release_check": "232 tokens exactly matched frozen independent test; source formatting AST equivalent",
+  "completion_audit_scope": "Full local research snapshot; raw evidence retained locally, not all files are shipped here"
+}

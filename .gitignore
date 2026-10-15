@@ -13,3 +13,8 @@ __pycache__/
 /uv_bootstrap_receipt.json
 /checkpoint_receipt.json
 /dist/
+
+# Standalone learned selector environment and generated outputs.
+/learned_selector/.venv/
+/learned_selector/runs/
+/learned_selector/models/

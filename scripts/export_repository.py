@@ -9,8 +9,8 @@ import tarfile
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ('README.md', 'NOTICE.md', '.gitignore', '.python-version', 'pyproject.toml',
          'uv.lock', 'lab', 'bootstrap_uv.py')
-DIRECTORIES = ('orthrus_parallel', 'scripts', 'tests', 'docs', 'configs', 'selectors', 'benchmarks', 'results')
-EXTENSIONS = {'.py', '.md', '.json', '.csv', '.npz', '.svg', '.png', '.pdf'}
+DIRECTORIES = ('orthrus_parallel', 'scripts', 'tests', 'docs', 'configs', 'selectors', 'benchmarks', 'results', 'learned_selector')
+EXTENSIONS = {'.py', '.md', '.json', '.csv', '.npz', '.svg', '.png', '.pdf', '.toml', '.lock', '.npy', '.pt'}
 
 
 def repository_files():
@@ -19,7 +19,7 @@ def repository_files():
         paths.extend(path for path in (ROOT / name).rglob('*')
                      if path.is_file() and path.suffix in EXTENSIONS and '__pycache__' not in path.parts)
     for path in sorted(paths):
-        if path.is_symlink() or not path.is_file() or path.stat().st_size > 5 * 1024**2:
+        if path.is_symlink() or not path.is_file() or path.stat().st_size > (25 if path.relative_to(ROOT).as_posix() == 'learned_selector/artifacts/embedding_projected.npy' else 5) * 1024**2:
             raise ValueError(f'Unexpected export item: {path}')
         yield path
 

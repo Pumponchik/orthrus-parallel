@@ -1,0 +1,5 @@
+{
+  "state": "passed",
+  "scope": "actual saved bilinear selector on CPU in inference_mode, as native runtime; synthetic ordinary and tied logits; identical shared64 extraction, rank-prefix filtering K1..64, nested M16/24/32/48 at fixed K",
+  "not_a_speed_or_quality_test": true
+}

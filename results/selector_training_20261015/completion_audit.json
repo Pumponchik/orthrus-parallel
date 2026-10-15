@@ -1,0 +1,228 @@
+{
+  "state": "passed",
+  "created_utc": "2026-10-15T01:06:32.149825+00:00",
+  "local_restore": {
+    "state": "passed",
+    "files": 4346,
+    "bytes": 1415531398,
+    "all_sizes_and_sha256_exact": true,
+    "base_checkpoint_included": false
+  },
+  "data": {
+    "stored": 17976,
+    "usable_train": 14264,
+    "validation": 1815,
+    "test": 1817,
+    "excluded_training_states": 80,
+    "cap": 20000
+  },
+  "training_receipts_complete": true,
+  "candidate_nesting": "candidate_nesting_gate.json; synthetic ordinary/tied logits, actual saved selector; not a performance test",
+  "release_ast_equivalence_rechecked_locally": true,
+  "figures": "three PNG/SVG/PDF figures visually inspected",
+  "gpu_final_check": "No research compute processes remained on CV10 at final read-only check",
+  "runtime": {
+    "validation": {
+      "generations": 336,
+      "source_hashes_in_frozen_archive_exact": true,
+      "gpu_receipts_complete": true,
+      "foreign_gpu_processes_observed": false
+    },
+    "adaptive": {
+      "generations": 96,
+      "source_hashes_in_frozen_archive_exact": true,
+      "gpu_receipts_complete": true,
+      "foreign_gpu_processes_observed": false
+    },
+    "test": {
+      "generations": 240,
+      "source_hashes_in_frozen_archive_exact": true,
+      "gpu_receipts_complete": true,
+      "foreign_gpu_processes_observed": false
+    }
+  },
+  "timed_generations": 672,
+  "test_selection": "fixed architecture and budget frozen before test; test not used for tuning",
+  "analysis_preregistration": "No separate externally timestamped preregistration; analysis implemented before test in supervisor sequence. Original approved plan specifies paired95 CI. Source versions retained.",
+  "correctness": {
+    "new_vs_old_exact_outputs": 60,
+    "total": 60,
+    "repeat_consistent_prompts_each_arm": 30,
+    "ordinary_vs_branch_differing_prompts": 5,
+    "quality_review": "quality_review.json; limited case review, not quality equivalence benchmark",
+    "context_gate": "tiny FP32 actual model class; numerical errors retained in gate_context.json",
+    "feature_equivalence_scope": "one real validation draft; bank/ID and full-generation gates separate"
+  },
+  "release": {
+    "state": "passed",
+    "prompt_id": "code_424",
+    "tokens": 232,
+    "release_matches_frozen_test_exactly": true,
+    "weights_sha256": "18d6dc12b0bf68416f263bf51f05ffdeeb59b79074ab68efe98fb4684d9bb457",
+    "format_ast_equivalent": true
+  },
+  "primary_result": {
+    "speed_ratio": 1.0168449398471908,
+    "ci95": [
+      1.0078752354078766,
+      1.0261406891031672
+    ],
+    "exact_outputs": 60,
+    "total_outputs": 60,
+    "prompt_wins_a": 21,
+    "domain_speed_ratios": {
+      "code": 1.0267640431724496,
+      "math": 1.006411198759254,
+      "text": 1.014652140424319
+    }
+  },
+  "target_3_percent_achieved": false,
+  "paired_prompt_distribution": {
+    "positive": 21,
+    "negative": 9,
+    "median_gain_percent": 1.1963456940152883,
+    "worst": {
+      "prompt": "text_45112",
+      "gain_percent": -6.1951023795225435
+    },
+    "best": {
+      "prompt": "code_350",
+      "gain_percent": 6.652007152049189
+    },
+    "rows": [
+      {
+        "prompt": "math_5958",
+        "gain_percent": 3.2280988802758204
+      },
+      {
+        "prompt": "code_639",
+        "gain_percent": 2.079907655934954
+      },
+      {
+        "prompt": "text_47835",
+        "gain_percent": 1.8669821024886346
+      },
+      {
+        "prompt": "code_54",
+        "gain_percent": -1.4411245361704128
+      },
+      {
+        "prompt": "math_3225",
+        "gain_percent": 1.3220746611325218
+      },
+      {
+        "prompt": "text_17264",
+        "gain_percent": -1.0308421921537247
+      },
+      {
+        "prompt": "text_10213",
+        "gain_percent": 0.511945574011774
+      },
+      {
+        "prompt": "code_582",
+        "gain_percent": 1.0706167268980549
+      },
+      {
+        "prompt": "code_864",
+        "gain_percent": 5.4812590661617255
+      },
+      {
+        "prompt": "text_39320",
+        "gain_percent": 2.3927035118766593
+      },
+      {
+        "prompt": "math_6752",
+        "gain_percent": -2.536918419855416
+      },
+      {
+        "prompt": "text_33153",
+        "gain_percent": 1.5269896527802418
+      },
+      {
+        "prompt": "code_683",
+        "gain_percent": 3.67217058345386
+      },
+      {
+        "prompt": "math_1030",
+        "gain_percent": -2.458768432884406
+      },
+      {
+        "prompt": "math_931",
+        "gain_percent": 0.8145499917322718
+      },
+      {
+        "prompt": "text_44764",
+        "gain_percent": 0.5644424149461091
+      },
+      {
+        "prompt": "math_338",
+        "gain_percent": 0.18288454710029267
+      },
+      {
+        "prompt": "math_3624",
+        "gain_percent": -2.2320512021689165
+      },
+      {
+        "prompt": "code_350",
+        "gain_percent": 6.652007152049189
+      },
+      {
+        "prompt": "math_1199",
+        "gain_percent": 5.3829046655907264
+      },
+      {
+        "prompt": "code_767",
+        "gain_percent": 4.5463525250682535
+      },
+      {
+        "prompt": "code_921",
+        "gain_percent": 1.6434896725525672
+      },
+      {
+        "prompt": "text_35067",
+        "gain_percent": 0.5055223512498763
+      },
+      {
+        "prompt": "text_45112",
+        "gain_percent": -6.1951023795225435
+      },
+      {
+        "prompt": "math_571",
+        "gain_percent": 5.372868150072585
+      },
+      {
+        "prompt": "math_4709",
+        "gain_percent": -0.7452455193551866
+      },
+      {
+        "prompt": "code_914",
+        "gain_percent": 3.350581780278028
+      },
+      {
+        "prompt": "code_424",
+        "gain_percent": -0.989350496924768
+      },
+      {
+        "prompt": "text_5399",
+        "gain_percent": -1.0085306665824412
+      },
+      {
+        "prompt": "text_35628",
+        "gain_percent": 6.508732469130374
+      }
+    ]
+  },
+  "peak_memory_allocated_bytes": {
+    "baseline": 1791291392,
+    "old8m48": 1706789888,
+    "fixed": 1698664448,
+    "adaptive": 1698665984
+  },
+  "time_to_first_token": "not separately measured; full generation includes prefill; no TTFT improvement claim",
+  "opus_review": {
+    "model": "claude-opus-5-5",
+    "complete": true,
+    "scope": "aggregate result packet, not independent source audit",
+    "path": "reviews/review03_result.json"
+  }
+}
