@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FILES = ('README.md', 'NOTICE.md', '.gitignore', '.python-version', 'pyproject.toml',
          'uv.lock', 'lab', 'bootstrap_uv.py')
 DIRECTORIES = ('orthrus_parallel', 'scripts', 'tests', 'docs', 'configs', 'selectors', 'benchmarks', 'results')
-EXTENSIONS = {'.py', '.md', '.json', '.csv', '.npz'}
+EXTENSIONS = {'.py', '.md', '.json', '.csv', '.npz', '.svg', '.png', '.pdf'}
 
 
 def repository_files():
