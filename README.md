@@ -2,9 +2,9 @@
 
 **Verify the current draft and prepare its possible continuations in one transformer forward.**
 
-![AR verification and isolated draft branches share one forward traversal](docs/parallel.svg)
+![Fused forward: KV cache, the main draft to verify, and candidate branches share Orthrus](docs/fused-forward.png)
 
-[▶ Watch the walkthrough: parallel inference and branch selection](docs/orthrus-parallel.mp4)
+https://github.com/user-attachments/assets/84153cfb-69dc-4e6b-b8ff-04827ef45cae
 
 ## How it works
 
