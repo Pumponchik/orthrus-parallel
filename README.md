@@ -1,61 +1,53 @@
-# Orthrus: следующий draft одновременно с проверкой
+# Orthrus Parallel
 
-Обычный Orthrus предлагает блок токенов и проверяет его авторегрессионной частью. Здесь проверка одновременно готовит несколько возможных продолжений. Если угадали продолжение, отдельный draft пропускается.
+**Verify the current draft and prepare its possible continuations in one transformer forward.**
 
-**[Смотреть видео: параллельный forward и отбор ветвей — 3:05](docs/videos/orthrus-parallel-and-selector.mp4)**
+![AR verification and isolated draft branches share one forward traversal](docs/parallel.svg)
 
-Совместная проверка и генерация, маска внимания; с **1:20** — зачем нужен селектор, его входы, выбор top-48 и результаты. Анимация на английском.
+[▶ Watch the walkthrough: parallel inference and branch selection](docs/orthrus-parallel.mp4)
 
-![Один общий forward](docs/figures/parallel.svg)
+## How it works
 
-**Ветвь — пара «сколько предложений примут + какой токен выдаст AR следующим».** Например: «примут три, следующим будет `return`». Токен `return` становится якорем следующего блока.
+Ordinary Orthrus alternates drafting and verification. Here, verification runs alongside several possible next drafts. When a branch matches the verifier's accepted prefix **and** next token, its continuation is already prepared. A miss falls back to a separate draft.
 
-Контекст этой ветви: подтверждённый AR-кэш + текущий якорь и три предложения, заново вычисленные через причинный AR-attention в том же общем forward. Вход самой ветви — `return` и 15 масок. Весь текущий AR-блок вычисляется один раз. Ветви друг друга не видят; в постоянный кэш попадают только AR key/value. [Маска и кэш →](docs/parallel.md)
+The default uses **16-token blocks**, considers **32 candidate anchors at each of 16 positions**, and selects **48 branches total**. Each branch reads the confirmed context and its assumed accepted prefix through causal AR states. Attention masks isolate branches from one another.
 
-## Как выбираем ветви
+The selector scores pairs such as **“accept 3 proposals, then emit `return`”** using draft probabilities, position, token rank, the draft hidden state, and the candidate's embedding. A small MLP plus a learned hidden-state/token compatibility score ranks the pairs. All inputs exist before verification; no extra model forward is needed. [Details and a concrete example →](docs/method.md)
 
-Основной draft и каждая ветвь имеют длину **16**. На каждой из 16 границ рассматриваем до **32 токенов-якорей**, затем оставляем **48 лучших пар суммарно**.
+## Results
 
-```mermaid
-flowchart TD
-    D["Готовый draft: вероятности и hidden states"] --> S["Небольшая сеть оценивает каждую пару позиция + токен"]
-    E["Embedding токена, его ранг и позиция"] --> S
-    S --> B["48 лучших пар из допустимых 16 × 32"]
-    B --> J["AR-проверка + 48 draft-ветвей за один forward"]
-    C["AR-кэш и причинный префикс текущего блока"] --> J
-    J --> R["Совпали граница и токен → берём готовую ветвь"]
-```
+ZaryaOrthrus-0.6B · RTX 2080 Ti · FP16 · batch 1 · greedy · up to 256 new tokens.
 
-Сеть получает уже доступные вероятности/уверенность draft, его hidden state на позиции, embedding кандидата и сведения о текущем цикле. Предсказывает правильную пару, а не длину блока. Большая модель ради селектора дополнительно не запускается. Общая подготовка оценивает 16×64 пары, затем исключает ранги выше 32; это время учтено.
-
-Основной вариант — top-32 токена-якоря на позицию и селектор, который оставляет 48 ветвей. Селектор — небольшая сеть с обучаемым сопоставлением hidden state и embedding. [Что сравнили и как обучали →](docs/selector_training_20261015.md)
-
-## Скорость: независимый тест 15 октября 2026
-
-ZaryaOrthrus-0.6B, RTX 2080 Ti, native FP16, блоки 16. **30 новых запросов × 2 повтора**; время включает prefill, признаки, селектор и генерацию.
-
-| Вариант | Токенов/с |
+| Method | Tokens/s |
 |---|---:|
-| Обычный Orthrus | 58,28 |
-| **Top-32 + селектор → 48 ветвей** | **69,57** |
+| Ordinary Orthrus | 58.28 |
+| Parallel + selector | **69.57** |
 
-[График сравнения конфигураций](docs/figures/speed_test.svg)
+**19.4% faster** (paired 95% interval: **17.0–22.1%**) across 30 held-out prompts, two repeats. Timing includes prefill, feature preparation, selection, and generation. Branch hit rate: **84.6%**. Outputs differed from ordinary Orthrus on **5 of 30 prompts**; exact equivalence and equal answer quality are not established. [Measurements and protocol →](benchmarks/README.md)
 
-**Top-32 + селектор: +19,4% к обычному Orthrus**, парный 95%-интервал [17,0; 22,1]%. Попадание в нужную ветвь — 84,6% среди циклов, где банк может пригодиться. Если нужной пары нет, выполняется отдельный draft.
+## Run
 
-С обычным Orthrus ответы различались на 5/30 запросах; универсальная эквивалентность и сохранение качества не доказаны. Результат не переносится автоматически на другое оборудование или длинные генерации. [Отчёт и графики →](docs/selector_training_20261015.md)
-
-## Запуск
-
-На Linux с NVIDIA GPU и установленным uv:
+Requires Linux x86_64, an NVIDIA GPU, and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-uv sync --project learned_selector --locked
-CUDA_VISIBLE_DEVICES=0 uv run --project learned_selector --locked --no-sync python \
-  learned_selector/infer.py --checkpoint /path/to/ZaryaOrthrus-0.6B \
-  --prompt 'Explain binary search briefly.' --max-new-tokens 256
+uv sync --locked
+uv run --locked python scripts/download_model.py             # inspect download plan
+uv run --locked python scripts/download_model.py --download  # fetch pinned checkpoint
+
+CUDA_VISIBLE_DEVICES=0 uv run --locked python -m orthrus_parallel \
+  --checkpoint models/ZaryaOrthrus-0.6B/6c93071b27ab0d2061007dda0416f0439ed4d7df \
+  --prompt 'Explain binary search briefly.'
 ```
 
-[Точная версия checkpoint и инструкция →](learned_selector/README_RU.md). Веса селектора приложены; базовая модель скачивается отдельно. Прежние режимы доступны через [старый CLI](docs/setup.md).
+Use `--method baseline` for ordinary Orthrus, or `--prompt-file`, `--max-new-tokens`, and `--output` to control a run. [Setup and checks →](docs/setup.md)
 
-[Воспроизводимость](docs/selector_reproduction.md) · [Измерения](results/selector_training_20261015/analysis_test.json) · [Проверки поставки](results/selector_training_20261015/publication_validation.json) · [Исторический тест 12 октября](docs/benchmark.md) · [Происхождение](NOTICE.md)
+## Contents
+
+- `orthrus_parallel/` — joint forward, masking, selector, and decoding loop.
+- `weights/` — released selector and its fixed projections.
+- `benchmarks/` — paired benchmark runner, sample prompts, and measured results.
+- `tests/` — causal-mask, cache, and branch-equivalence checks.
+
+## License
+
+Original code and documentation: [MIT](LICENSE). The bundled selector weights have **separate noncommercial research terms**; model-derived embeddings retain upstream terms. See [NOTICE](NOTICE.md) before using or redistributing weights.

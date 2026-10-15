@@ -1,13 +1,21 @@
-# Происхождение
+# Licenses and provenance
 
-Модель: [ai-forever/ZaryaOrthrus-0.6B](https://huggingface.co/ai-forever/ZaryaOrthrus-0.6B), ревизия `6c93071b27ab0d2061007dda0416f0439ed4d7df`. Используется опубликованный авторский `modeling_orthrus.py`, загружаемый вместе с checkpoint. Исходная модель — Qwen3-0.6B; полный гибридный checkpoint содержит дополнительные diffusion-параметры. В карточке checkpoint заявлена лицензия MIT; условия соответствующих внешних компонентов следует сохранять при их распространении.
+## Code and documentation
 
-Связанный авторский проект: [ai-forever/Zarya-Orthrus](https://github.com/ai-forever/Zarya-Orthrus). Веса большой модели, токенизатор и авторский model source не включены в экспорт: downloader получает закреплённую публичную версию и проверяет хеши.
+Original source code and documentation in this repository are covered by the root [MIT license](LICENSE). This grant does not relicense third-party models, datasets, or the binary assets listed below.
 
-Совместный forward, селектор и контроллер здесь очищены из локального исследования Orthrus. Архив с исходниками измеренного опыта сохраняется отдельно. Старые экспериментальные attention-ядра, предикторы длины, CatBoost и MLP не являются зависимостями рабочего пакета.
+The runtime implements parallel verification and drafting for [Zarya-Orthrus](https://github.com/ai-forever/Zarya-Orthrus), published by AI Forever under MIT. It loads [ZaryaOrthrus-0.6B](https://huggingface.co/ai-forever/ZaryaOrthrus-0.6B), whose model card declares MIT, and whose base model [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B) is Apache-2.0. The base checkpoint is downloaded separately. Dependency licenses remain with their respective authors.
 
-Линейный селектор обучен на состояниях запросов HumanEval, полученных на выбранном checkpoint. Сырые обучающие запросы и состояния остаются в локальном архиве; в экспорт входят только две небольшие линейные головы, их параметры и описание процедуры. Тестовые исследовательские запросы для скорости находятся в `benchmarks/prompts.json`.
+## Bundled weights
 
-При первоначальном планировании опыта и статистическом анализе использовались навыки experimental-design и statistical-analysis из Scientific Agent Skills: Kassis et al. (2026), [Scientific Agent Skills: A Library of Procedural Knowledge for Research Agents](https://arxiv.org/abs/2609.00065). Источник чисел скорости — собственные измерения, а не эта работа.
+| Asset | Provenance and terms |
+|---|---|
+| `weights/selector.pt` | Trained on model-generated states from GSM8K, MBPP, and Stanford Alpaca prompts. Released for noncommercial research only; not covered by the code's MIT grant. |
+| `weights/projection.npy` | Fixed random projection created for this implementation; MIT. |
+| `weights/embedding_projected.npy` | Projection of the ZaryaOrthrus-0.6B token embeddings, not independently generated embeddings. Retains applicable Zarya MIT and Qwen Apache-2.0 terms. |
 
-Этот каталог подготовлен для отдельного репозитория. Новая лицензия на весь пользовательский проект автоматически не назначалась; лицензии сторонних компонентов не расширяются этой заметкой. Подготовка файлов не означает публикацию на GitHub или передачу архивных данных.
+The selector used Alpaca instruction/input text, not Alpaca reference responses. [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) publishes its data under [CC BY-NC 4.0](https://github.com/tatsu-lab/stanford_alpaca/blob/main/DATA_LICENSE) and asks that models trained with it remain for research use. No unrestricted commercial rights to the supplied selector weights are asserted here. Attribution: Stanford Alpaca authors, [GSM8K authors](https://github.com/openai/grade-school-math), and [MBPP authors](https://github.com/google-research/google-research/tree/master/mbpp).
+
+Permission is granted by this repository's contributors to use, copy, and redistribute their contribution to the selector weights for noncommercial research, with this notice retained, subject to applicable upstream rights. The weights are provided without warranty. This is a separate limited grant, not a declaration that all upstream material has been relicensed.
+
+Upstream model license notices are retained in [licenses/](licenses/). The training datasets and base checkpoint are not bundled. The repository's MIT license cannot grant rights owned by an employer or other third party.

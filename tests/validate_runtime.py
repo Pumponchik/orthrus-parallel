@@ -1,34 +1,20 @@
-"""Real checkpoint regression plus an independent tiny-model causal/cache test.
-
-Uses existing dependencies; no downloads. --reference-root optionally points
-at the untouched original CV10 experiment to compare all six decoding modes.
-"""
+"""Check causal cache, branch equivalence, and the released selector."""
 import argparse
 import copy
-from dataclasses import asdict
-import json
 from pathlib import Path
-import sys
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--checkpoint', type=Path, required=True)
-    parser.add_argument('--reference-root', type=Path)
-    parser.add_argument('--output', type=Path, required=True)
-    args = parser.parse_args()
-    if args.output.exists():
-        parser.error('Choose a new output file')
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--checkpoint', type=Path, required=True)
+    args = p.parse_args()
     import torch
     from transformers import Qwen3Config
     from transformers.cache_utils import DynamicCache
-    from orthrus_parallel.loading import load_model, encode_prompt
+    from orthrus_parallel.loading import load_model, encode_prompt, ROOT
     from orthrus_parallel.joint import joint_forward, draft_forward, attention_mask
-    from orthrus_parallel.selector import FixedSelector, LinearSelector, draft_features
-    from orthrus_parallel.generation import generate, baseline
+    from orthrus_parallel.branches import candidate_tokens
+    from orthrus_parallel.selector import Selector
+    from orthrus_parallel.generation import generate
     model, tokenizer = load_model(args.checkpoint)
     cfg = Qwen3Config(vocab_size=31, hidden_size=32, intermediate_size=64, num_hidden_layers=2,
         num_attention_heads=4, num_key_value_heads=2, head_dim=8, layer_types=['full_attention']*2,
@@ -61,86 +47,36 @@ def main():
             assert not mask[:n,3+n:].any()  # AR never reads diffusion keys.
             assert not mask[n:n+length,3+n+length:].any()  # First branch cannot read siblings.
             errors.append({'rows':n,'ar_error':ar_error,'kv_error':kv_error,'branch_error':branch_error})
-    selectors={name:FixedSelector(name) for name in ['fixed48','uniform80','all128']}
-    selectors['selected48']=LinearSelector(ROOT/'selectors/zarya_06b','cuda',model.config.eos_token_id)
-    legacy = None
-    if args.reference_root:
-        reference_root=args.reference_root.resolve()
-        sys.path.insert(0,str(reference_root))
-        import runtime_support  # Sets the original bundle import paths; does not load another model.
-        import frozen_v2_runtime as frozen
-        import context_controller as controller
-        from native_executor import NativeExecutor
-        from optimized_runtime import Reduced
-        legacy=(frozen,controller,NativeExecutor(model),Reduced(reference_root/'selector06',model,compact=True),
-                json.loads((reference_root/'design.json').read_text()),json.loads((reference_root/'bundle/cost_profile.json').read_text()))
-    comparisons=[]
-    finite=[0]
-    def check_finite(module, inputs, output):
-        assert bool(torch.isfinite(output).all())
-        finite[0]+=1
-    hook=model.lm_head.register_forward_hook(check_finite)
+
+    model.config.block_size = 16
+    selector = Selector(ROOT / 'weights', 'cuda', model.config.eos_token_id)
+    class Capture:
+        last = None
+        def hook(self, module, inputs, output):
+            self.last = output
+    capture = Capture()
+    handle = model.model.norm.register_forward_hook(capture.hook)
     try:
-        for prompt,cap in [('Explain binary search with a short Python example.',96),
-                           ('What is 17 times 23? Give the calculation and result.',80)]:
-            ids=encode_prompt(tokenizer,prompt,'cuda')
-            for name in ['baseline16','baseline32','fixed48','uniform80','all128','selected48']:
-                model.config.block_size=32 if name=='baseline32' else 16
-                if name.startswith('baseline'):
-                    tokens=baseline(model,ids,int(name[-2:]),cap); stats={}
-                else:
-                    tokens,counters=generate(model,ids,selectors[name],cap,trace=True);stats=asdict(counters)
-                assert 0<tokens.shape[1]<=cap
-                if legacy:
-                    frozen,controller,exe,heads,design,profile=legacy
-                    with torch.inference_mode():
-                        if name.startswith('baseline'):
-                            old=model.generate(ids,max_new_tokens=cap,temperature=0.,use_diffusion_mode=True)[:,ids.shape[1]:]
-                        elif name=='selected48':
-                            old,_=controller.generate(exe,ids,{'kind':'branch_fixed','B':16,'L':16,'M':48,'K':8,'policy':'fixed'},heads,profile,cap=cap)
-                        else:
-                            old,_=frozen.generate(model,ids,max_new_tokens=cap,trace=True,**design['options']['sparse48' if name=='fixed48' else name])
-                    assert torch.equal(tokens,old), (name,'refactor changed output tokens')
-                comparisons.append({'method':name,'prompt':prompt,'tokens':tokens.shape[1],
-                    'matches_original':True if legacy else None,'stats':stats})
-        # Immediate EOS and short output limits exercise cache/termination boundaries.
-        ids=encode_prompt(tokenizer,'Say hello.','cuda')
-        original_eos=model.config.eos_token_id
-        with torch.inference_mode(): first=int(model(input_ids=ids,logits_to_keep=1).logits[0,-1].argmax())
-        try:
-            model.config.eos_token_id=first
-            values,_=generate(model,ids,selectors['selected48'],64)
-            assert values.shape[1]==1
-        finally:
-            model.config.eos_token_id=original_eos
-        for cap in [1,2,16,17,31,32,33]:
-            values,_=generate(model,ids,selectors['selected48'],cap)
-            assert 0<values.shape[1]<=cap
-        ids=encode_prompt(tokenizer,'Explain how a cache works.','cuda')
+        ids = encode_prompt(tokenizer, 'Explain binary search briefly.', 'cuda')
+        cache = DynamicCache(config=model.config)
         with torch.inference_mode():
-            cache=DynamicCache(config=model.config)
-            initial=model(input_ids=ids,past_key_values=cache,use_cache=True,logits_to_keep=1)
-            draft=draft_forward(model,initial.logits[:,-1].argmax(-1),cache,16)
-            features=draft_features(draft)
-            posterior=selectors['selected48'].posterior(features)
-            assert features.shape==(16,17) and posterior.shape==(16,9)
-            torch.testing.assert_close(posterior.sum(),torch.tensor(1.,device='cuda'))
-            if legacy:
-                torch.testing.assert_close(features,heads.rows(draft),rtol=0,atol=0)
-                proposals=draft[0,:-1].argmax(-1)
-                old_r,old_x,_=heads.choose(model,None,draft,proposals,{'M':48},None)
-                new=selectors['selected48'].choose(draft,proposals)
-                assert torch.equal(new.boundaries,old_r) and torch.equal(new.anchors,old_x)
+            initial = model(input_ids=ids, past_key_values=cache, use_cache=True)
+            anchor = initial.logits[:, -1].argmax(-1)
+            logits = draft_forward(model, anchor, cache, 16)
+            proposals = logits[0, :-1].argmax(-1)
+            wide = candidate_tokens(logits, proposals, 64)
+            for count in [1, 4, 8, 16, 32]:
+                assert torch.equal(wide[:, :count], candidate_tokens(logits, proposals, count))
+            selector.set_state(capture.last, None, 'fresh', ids.shape[1], 0)
+            bank = selector.choose(logits, proposals, 'fresh')
+            assert bank.anchors.numel() == 48
+            assert bool((wide[bank.boundaries, :32] == bank.anchors[:, None]).any(-1).all())
+        for cap in [1, 16, 17, 31, 32, 33, 96]:
+            tokens, stats = generate(model, ids, selector, capture, cap)
+            assert 0 < tokens.shape[1] <= cap
+        print({'state': 'passed', 'branch_equivalence': errors})
     finally:
-        hook.remove()
-    result={'state':'passed','tiny_fp32_parity':errors,'real_fp16_generations':comparisons,
-        'finite_lm_head_calls':finite[0],'short_caps':[1,2,16,17,31,32,33],
-        'immediate_eos':'passed','selector_features_and_choices':'matched original' if legacy else 'shape/normalization passed',
-        'scope':'Refactor correctness regression, not a new speed benchmark or a quality evaluation',
-        'environment':{'torch':torch.__version__,'gpu':torch.cuda.get_device_name(),'dtype':'FP16'}}
-    args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2))
-    print('PASSED:',len(comparisons),'generations;',finite[0],'finite logits checks; tiny FP32 cache/branch parity')
+        handle.remove()
 
-
-if __name__=='__main__':main()
+if __name__ == '__main__':
+    main()

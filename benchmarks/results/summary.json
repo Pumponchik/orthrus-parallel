@@ -1,0 +1,75 @@
+{
+  "state": "complete",
+  "prompts": 30,
+  "repeats": 2,
+  "bootstrap": {
+    "samples": 10000,
+    "seed": 20261015,
+    "unit": "prompt retaining repeats and all arms",
+    "strata": "domain x physical GPU"
+  },
+  "generations": 120,
+  "arms": {
+    "baseline": {
+      "tokens_per_second": 58.284544787798175,
+      "ci95": [
+        54.30636091723532,
+        63.16113197827272
+      ],
+      "tokens": 11782,
+      "seconds": 202.14621290937066,
+      "stats": null,
+      "bank_sizes": {},
+      "ready_draft_fraction": null,
+      "bank_hit_rate": null,
+      "tokens_per_round": null,
+      "tokens_per_forward": null,
+      "accepted_per_round": null,
+      "repeat_exact": 30
+    },
+    "fixed": {
+      "tokens_per_second": 69.5699987959458,
+      "ci95": [
+        65.0166192521459,
+        75.28406349312075
+      ],
+      "tokens": 11776,
+      "seconds": 169.2683657296002,
+      "stats": {
+        "rounds": 2504,
+        "hits": 1952,
+        "misses": 354,
+        "fresh_drafts": 552,
+        "joint_forwards": 2336,
+        "ar_forwards": 168,
+        "accepted_draft_tokens": 9244,
+        "branch_positions": 1794048,
+        "continuing_eligible_cycles": 2306
+      },
+      "bank_sizes": {
+        "48": 2336
+      },
+      "ready_draft_fraction": 0.7795527156549521,
+      "bank_hit_rate": 0.8464874241110147,
+      "tokens_per_round": 4.702875399361022,
+      "tokens_per_forward": 3.779204107830552,
+      "accepted_per_round": 3.691693290734824,
+      "repeat_exact": 30
+    }
+  },
+  "comparison": {
+    "speed_ratio": 1.1936268705406485,
+    "ci95": [
+      1.1695717799861616,
+      1.2206076563873125
+    ],
+    "exact_outputs": 50,
+    "total_outputs": 60,
+    "prompt_wins_a": 30,
+    "domain_speed_ratios": {
+      "code": 1.193223712643438,
+      "math": 1.1993949894193827,
+      "text": 1.1791333549482523
+    }
+  }
+}

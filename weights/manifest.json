@@ -1,0 +1,5 @@
+{
+  "weights/projection.npy": "a490974e3e19aa239ade89a4a2a8903a22c7f1e73f317a3e8f8b88554374955e",
+  "weights/embedding_projected.npy": "e5670990b35743936273fc1c0fe87118d90b46bc14746f3bb3b137528e6ce50c",
+  "weights/selector.pt": "18d6dc12b0bf68416f263bf51f05ffdeeb59b79074ab68efe98fb4684d9bb457"
+}

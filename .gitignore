@@ -1,20 +1,8 @@
-# Local, untouched research history; never include it in a repository export.
-/archive/
+/.venv/
 /models/
 /runs/
-/.venv/
-/.python/
-/.tools/
-/.uv-cache/
 __pycache__/
 *.py[cod]
 *.part
 .DS_Store
-/uv_bootstrap_receipt.json
 /checkpoint_receipt.json
-/dist/
-
-# Standalone learned selector environment and generated outputs.
-/learned_selector/.venv/
-/learned_selector/runs/
-/learned_selector/models/

@@ -1,7 +1,7 @@
 [project]
 name = "orthrus-lab"
 version = "0.1.0"
-description = "Reproducible native Orthrus inference experiments on CV10"
+description = "Parallel verification and draft generation for Orthrus"
 requires-python = ">=3.11,<3.12"
 dependencies = [
   "torch==2.6.0+cu118",

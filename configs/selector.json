@@ -1,0 +1,5 @@
+{
+  "block_size": 16,
+  "top_anchors": 32,
+  "branches": 48
+}
