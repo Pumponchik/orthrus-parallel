@@ -14,14 +14,14 @@ The selector scores pairs such as **“accept 3 proposals, then emit `return`”
 
 ## Results
 
-ZaryaOrthrus-0.6B · RTX 2080 Ti · FP16 · batch 1 · greedy · up to 256 new tokens.
+ZaryaOrthrus-0.6B · RTX 2080 Ti · FP16/BF16 runs · batch 1 · greedy · up to 256 new tokens.
 
 | Method | Tokens/s |
 |---|---:|
 | Ordinary Orthrus | 58.28 |
 | Parallel + selector | **69.57** |
 
-**19.4% faster** (paired 95% interval: **17.0–22.1%**) across 30 held-out prompts, two repeats. Timing includes prefill, feature preparation, selection, and generation. Branch hit rate: **84.6%**. Outputs differed from ordinary Orthrus on **5 of 30 prompts**; exact equivalence and equal answer quality are not established. [Measurements and protocol →](benchmarks/README.md)
+**19.4% higher measured throughput** (paired 95% interval: **17.0–22.1%**) across 30 held-out prompts, two repeats. Timing includes prefill, feature preparation, selection, and generation. Branch hit rate: **84.6%**. The historical runs used different target precisions (FP16 and BF16), so this is not a controlled same-precision comparison. [Measurements and protocol →](benchmarks/README.md)
 
 ## Run
 
