@@ -2,9 +2,7 @@
 
 **Verify the current draft and prepare its possible continuations in one transformer forward.**
 
-![Fused forward: KV cache, the main draft to verify, and candidate branches share Orthrus](docs/fused-forward.png)
-
-https://github.com/user-attachments/assets/84153cfb-69dc-4e6b-b8ff-04827ef45cae
+https://github.com/user-attachments/assets/9db05e4c-9688-4960-977b-ae9722b1d8bf
 
 ## How it works
 
